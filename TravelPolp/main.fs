@@ -88,6 +88,10 @@ let form = new ThreadSafeForm(
                     Text = "TravelPolp",
                     WindowState=FormWindowState.Maximized)
 
+let button1 = new Button(Text="1", Dock=DockStyle.Top)
+
+form.Controls.Add(button1)
+
 [<STAThread>]
 Application.EnableVisualStyles();
 Application.Run(form)
