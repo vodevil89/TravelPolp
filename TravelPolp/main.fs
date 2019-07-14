@@ -1,9 +1,15 @@
-﻿open System
+﻿module main
+
+open System
 open System.Drawing
 open System.Drawing.Drawing2D
 open System.Runtime.InteropServices
 open System.Threading
 open System.Windows.Forms
+
+open day
+open user
+open trip
 
 [<DllImport("user32.dll")>]
 extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam)
@@ -88,9 +94,22 @@ let form = new ThreadSafeForm(
                     Text = "TravelPolp",
                     WindowState=FormWindowState.Maximized)
 
-let button1 = new Button(Text="1", Dock=DockStyle.Top)
+form.Controls.AddRange(calendarButtons)
+form.Controls.Add(calendarMonthBackwardButton)
+form.Controls.Add(calendarMonthForwardButton)
 
-form.Controls.Add(button1)
+calendarMonthBackwardButton.Click.Add(fun _ ->
+                                        if selectedDay.Date.AddMonths(-1) >= startDate then
+                                            selectedDay <- new Day(selectedDay.Date.AddMonths(-1))
+                                            calculateCalendarMonth()
+                                            form.Invalidate()
+)
+calendarMonthForwardButton.Click.Add(fun _ ->
+                                        if selectedDay.Date.AddMonths(1) <= endDate then
+                                            selectedDay <- new Day(selectedDay.Date.AddMonths(1))
+                                            calculateCalendarMonth()
+                                            form.Invalidate()
+)
 
 [<STAThread>]
 Application.EnableVisualStyles();
