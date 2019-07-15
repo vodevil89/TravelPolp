@@ -7,7 +7,7 @@ open System.Runtime.InteropServices
 open System.Threading
 open System.Windows.Forms
 
-open day
+open calendar
 open user
 open trip
 
@@ -98,16 +98,22 @@ form.Controls.AddRange(calendarButtons)
 form.Controls.Add(calendarMonthBackwardButton)
 form.Controls.Add(calendarMonthForwardButton)
 
+calculateCalendarMonth()
+
+calculateCalendarTrips()
+
 calendarMonthBackwardButton.Click.Add(fun _ ->
                                         if selectedDay.Date.AddMonths(-1) >= startDate then
                                             selectedDay <- new Day(selectedDay.Date.AddMonths(-1))
                                             calculateCalendarMonth()
+                                            calculateCalendarTrips()
                                             form.Invalidate()
 )
 calendarMonthForwardButton.Click.Add(fun _ ->
                                         if selectedDay.Date.AddMonths(1) <= endDate then
                                             selectedDay <- new Day(selectedDay.Date.AddMonths(1))
                                             calculateCalendarMonth()
+                                            calculateCalendarTrips()
                                             form.Invalidate()
 )
 

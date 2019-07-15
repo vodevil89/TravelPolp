@@ -1,4 +1,4 @@
-﻿module day
+﻿module calendar
 
 open System
 open System.Drawing
@@ -62,7 +62,6 @@ let calculateCalendarMonth() =
                 | _ -> ()
 
             calendarButtons.[tempButtonIndex].Visible <- true
+            calendarButtons.[tempButtonIndex].BackColor <- Color.Gainsboro
             calendarButtons.[tempButtonIndex].Text <- day.Date.ToShortDateString()
             tempButtonIndex <- tempButtonIndex + 1
-
-calculateCalendarMonth()

@@ -46,8 +46,9 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="day.fs" />
+    <Compile Include="calendar.fs" />
     <Compile Include="user.fs" />
+    <Compile Include="trip_leg.fs" />
     <Compile Include="trip.fs" />
     <Compile Include="main.fs" />
     <None Include="App.config" />
