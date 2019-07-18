@@ -1,8 +1,10 @@
 ﻿module trip_leg
 
+open System
+
 type Country = Italy
 
-type TripLeg(pCity, pCountry, pStartDate, pEndDate) =
+type TripLeg(pCity:string, pCountry:string, pStartDate:DateTime, pEndDate:DateTime) =
 
     let mutable city = pCity
     let mutable country = pCountry

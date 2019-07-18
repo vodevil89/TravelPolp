@@ -23,8 +23,11 @@ type Trip(pTripType, pName, pStartdate, pEndDate, pTripLegs:TripLeg[]) =
     member this.TripLegs with get() = tripLegs and set(x) = tripLegs <- x
 
 let trips = [|
-                new Trip(TripType.Commitment, "Dentist", new DateTime(2019, 7, 20), new DateTime(2019, 7, 20), [| |])
-                new Trip(TripType.Trip, "Rome", new DateTime(2019, 7, 26), new DateTime(2019, 7, 28), [| |])
+                new Trip(TripType.Commitment, "Dentist", new DateTime(2019, 7, 20), new DateTime(2019, 7, 20), [| new TripLeg("Milan", "Italy", new DateTime(2019, 7, 20), new DateTime(2019, 7, 20)) |])
+                new Trip(TripType.Trip, "Rome", new DateTime(2019, 7, 26), new DateTime(2019, 7, 28),   [|
+                                                                                                            new TripLeg("Rome", "Italy", new DateTime(2019, 7, 26), new DateTime(2019, 7, 26))
+                                                                                                            new TripLeg("Anzio", "Italy", new DateTime(2019, 7, 27), new DateTime(2019, 7, 28))
+                                                                                                        |])
             |]
 
 let calculateCalendarTrips() =
@@ -54,10 +57,15 @@ let calculateCalendarTrips() =
                     for tripLeg in trip.TripLegs do
                         if tripLeg.StartDate <= day.Date && day.Date <= tripLeg.EndDate then
 
+                            tripLegDayDetails <- if tripLegDayDetails = "" then
+                                                        tripLeg.City
+                                                    else
+                                                        tripLegDayDetails + " - " + tripLeg.City
+
                     tripDayDetails <- tripDayDetails + Environment.NewLine
                                         + Environment.NewLine
                                         + trip.Name + Environment.NewLine
-                                        + "(" + trip.Name + ")"
+                                        + "(" + tripLegDayDetails + ")"
 
                     if trip.TripType = TripType.Trip then
                         calendarButtons.[tempButtonIndex].BackColor <- Color.LightCoral
